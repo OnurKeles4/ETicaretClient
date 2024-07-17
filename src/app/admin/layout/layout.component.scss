@@ -1,0 +1,13 @@
+.example-container {
+    width: 95%;
+    height: 100vh;
+    border: 1px solid #555;
+    margin: 10px;
+    /* The background property is added to clearly distinguish the borders between drawer and main
+       content */
+    background: #cfcfcf;
+  }
+
+#content {
+    background-color: #f1f1f1;
+}
