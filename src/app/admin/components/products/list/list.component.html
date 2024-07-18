@@ -1,1 +1,8 @@
-<p>list works!</p>
+<ag-grid-angular *ngIf="isBrowser && isDataReady"
+  style="height: 500px;
+  "class="ag-theme-quartz-dark"
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+  [pagination]="pagination"
+   [paginationPageSize]="paginationPageSize"
+></ag-grid-angular>

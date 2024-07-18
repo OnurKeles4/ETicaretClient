@@ -21,7 +21,7 @@ export class ProductsComponent {
 
 
   ngOnInit(): void{
-    // this.httpClientService.get({
+    // this.httpClientService.get<Produc  t>({
     //   controller: "products"
     // }).subscribe(data => console.log());
 

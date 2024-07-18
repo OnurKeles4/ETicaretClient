@@ -1,15 +1,15 @@
 <form class="needs-validation m-2" id="input-container">
     <ix-input-group class="input-group"  >
-      <input placeholder="Enter text" type="text" />
+      <input placeholder="Enter text" type="text" #txtName/>
     </ix-input-group>
 
     <ix-input-group class="input-group" >
-      <input type="number" />
+      <input placeholder="Enter the Stock Amount" type="number" #txtStock/>
     </ix-input-group>
 
     <ix-input-group class="input-group" >
-      <input placeholder="Enter password"/>
+      <input placeholder="Enter the Price" type="number" #txtPrice/>
     </ix-input-group>
 
-    <ix-button>Submit</ix-button>
+    <ix-button (click)="create(txtName, txtStock, txtPrice)"> Submit </ix-button>
 </form>

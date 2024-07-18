@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { provideToastr } from 'ngx-toastr';
 import { IxModule } from '@siemens/ix-angular';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { AgGridModule } from 'ag-grid-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,10 +22,12 @@ export const appConfig: ApplicationConfig = {
       IxModule.forRoot(),
       BrowserModule,
       BrowserAnimationsModule,
-      RouterModule
+      RouterModule,
+      AgGridModule
       ),
       provideToastr(), // Toastr providers
       provideAnimations(),
+      AgGridModule
       
 ]
 };
