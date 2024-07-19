@@ -19,9 +19,9 @@ export class CreateComponent {
    
    const create_product:  CreateProduct = new CreateProduct();
 
-   create_product.name = name.value;
-    create_product.stock = parseInt(stock.value);
-    create_product.price = parseFloat(price.value);
+  create_product.name = name.value;
+  create_product.stock = parseInt(stock.value);
+  create_product.price = parseFloat(price.value);
 
     this.productservice.create(create_product, () => {
       this.alertify.message("Ürün başarıyla eklendi", {

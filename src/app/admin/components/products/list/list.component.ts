@@ -8,19 +8,21 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { ListProduct } from '../../../../contracts/list_product';
 import { ProductService } from '../../../../services/common/models/product.service';
-import { log } from 'console';
+
+import { DeleteComponent } from '../delete/delete.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {faTrashCan, faEdit} from '@fortawesome/free-solid-svg-icons'
 import { IxModule } from '@siemens/ix-angular';
 import { AlertifyService, MessageType, Position } from '../../../../services/admin/alertify.service';
+import { UpdateComponent } from '../update/update.component';
 
 // import a from '../../../assets/mock_ticketsystem_data.json';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [AgGridAngular, CommonModule,FontAwesomeModule, IxModule],
+  imports: [AgGridAngular, CommonModule,FontAwesomeModule, IxModule, DeleteComponent, UpdateComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
   
@@ -39,8 +41,7 @@ export class ListComponent {
   pagination: boolean = true;
   paginationPageSize: number = 10;
   
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected productservice: ProductService,
-  private alertify: AlertifyService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected productservice: ProductService) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
   
@@ -48,33 +49,11 @@ export class ListComponent {
     this.updateList();
   }
 
-  public deleteSelected() {
-    console.log("Delete Selected in List, id:", this.selectedProduct.id);
-    
-    this.productservice.delete(this.selectedProduct.id).subscribe(() => {
-      this.alertify.message("Ürün başarıyla silindi", {
-        messageType: MessageType.Message,
-        position: Position.BottomRight,
-        delay: 3,
-        dismissOthers: true
-      ,});
- 
-    },() => {
-      this.alertify.message("Ürün silinirken Hata oluştu", {
-      dismissOthers: true,
-      messageType: MessageType.Error,
-      position: Position.BottomRight,
-      });
-    });
-    this.isDisabled = true;
-    //console.log("new rowdata: ");
-    console.log(this.rowData);
-  }
+  recieveMessage($event: any) {
+    console.log("Recieved Message");
+    this.isDisabled = $event;
+  }  
 
-  public editSelected() {
-    console.log("Edit Selected");
-    this.isDisabled = true;
-  }
   changeProduct(event: any) {
     console.log("Product Changed");
     console.log(event);

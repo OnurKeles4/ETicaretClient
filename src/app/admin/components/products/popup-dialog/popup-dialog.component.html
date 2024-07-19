@@ -1,0 +1,24 @@
+<div class="edit-box">
+<h2 class="header" mat-dialog-title>Edit Product</h2>
+<div mat-dialog-content>
+  <p>{{data.description}}</p>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Input 1</mat-label>
+      <input matInput formControlName="input1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Input 2</mat-label>
+      <input matInput formControlName="input2">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Input 3</mat-label>
+      <input matInput formControlName="input3">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSubmit()">Submit</button>
+</div>
+</div>

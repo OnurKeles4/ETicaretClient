@@ -50,12 +50,36 @@ export class ProductService {
 
   }
 
+  readWithId(id: string): Observable<ListProduct[]> {
+    
+    var a = this.httpClientService.get<ListProduct[]>({
+      controller: "products"
+    }, id);
+    console.log("read with Id");
+     console.log(a);
+    
+    return a;
+
+
+     // return a;
+
+  }
+
   delete(id: string) {
     console.log("Delete Selected in Service, id:", id);
     
     var a = this.httpClientService.delete({
       controller: "products"
     }, id!)
+    return a;
+  }
+
+  update(product: ListProduct) {
+    console.log("Update Selected in Service, product:", product);
+    
+    var a = this.httpClientService.put({
+      controller: "products"
+    }, product)
     return a;
   }
 

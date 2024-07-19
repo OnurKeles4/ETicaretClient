@@ -5,11 +5,13 @@ import { ListComponent } from "./list/list.component";
 import { HttpClientService } from '../../../services/common/http-client.service';
 import { RouterModule } from '@angular/router';
 import { data } from 'jquery';
+import { DeleteComponent } from "./delete/delete.component";
+import { UpdateComponent } from "./update/update.component";
 
 @Component({
   selector: 'app-admin-products',
   standalone: true,
-  imports: [IxModule, CreateComponent, ListComponent, RouterModule],
+  imports: [IxModule, CreateComponent, ListComponent, RouterModule, DeleteComponent, UpdateComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })

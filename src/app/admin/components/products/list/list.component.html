@@ -9,7 +9,8 @@
    (rowClicked)="changeProduct($event)"
    
 ></ag-grid-angular>
-<ix-button [disabled]="isDisabled" (click)="editSelected()"> <fa-icon [icon]="icon1"></fa-icon>
-  Edit</ix-button>
-  <ix-button [disabled]="isDisabled" (click)="deleteSelected()"> <fa-icon [icon]="icon2"></fa-icon>
-Delete</ix-button></div>
+ 
+<app-update (messageEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-update>
+<app-delete (messageEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-delete>
+
+

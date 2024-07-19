@@ -5,11 +5,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
 import { provideToastr } from 'ngx-toastr';
 import { IxModule } from '@siemens/ix-angular';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,11 +27,15 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       BrowserAnimationsModule,
       RouterModule,
-      AgGridModule
-      ),
+      AgGridModule,
+      MatDialogModule,
+      MatInputModule,
+      MatButtonModule,
+      ReactiveFormsModule,  
+    ),
       provideToastr(), // Toastr providers
       provideAnimations(),
-      AgGridModule
+      AgGridModule, provideAnimationsAsync()
       
 ]
 };

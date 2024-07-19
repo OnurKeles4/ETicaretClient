@@ -32,6 +32,10 @@ export class HttpClientService {
       url = `${this.url(requestParameters)}`;
       //console.log('NormalURL');
     }
+
+    if(id != null) {
+      url = url + '/' + id;
+    }
     console.log(requestParameters);
     return this.httpClient.get<T>(url, { headers: requestParameters.headers });
   }
