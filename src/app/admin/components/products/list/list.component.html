@@ -1,3 +1,4 @@
+<div>
 <ag-grid-angular *ngIf="isBrowser && isDataReady"
   style="height: 500px;
   "class="ag-theme-quartz-dark"
@@ -5,4 +6,10 @@
   [columnDefs]="colDefs"
   [pagination]="pagination"
    [paginationPageSize]="paginationPageSize"
+   (rowClicked)="changeProduct($event)"
+   
 ></ag-grid-angular>
+<ix-button [disabled]="isDisabled" (click)="editSelected()"> <fa-icon [icon]="icon1"></fa-icon>
+  Edit</ix-button>
+  <ix-button [disabled]="isDisabled" (click)="deleteSelected()"> <fa-icon [icon]="icon2"></fa-icon>
+Delete</ix-button></div>

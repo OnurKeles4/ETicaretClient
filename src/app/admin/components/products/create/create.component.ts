@@ -3,6 +3,7 @@ import { IxModule } from '@siemens/ix-angular';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { CreateProduct } from '../../../../contracts/create_product';
 import { AlertifyService, MessageType, Position } from '../../../../services/admin/alertify.service';
+import { ListComponent } from '../list/list.component';
 
 @Component({
   selector: 'app-create',
@@ -12,7 +13,7 @@ import { AlertifyService, MessageType, Position } from '../../../../services/adm
   styleUrl: './create.component.scss'
 })
 export class CreateComponent {
-    constructor(private productservice: ProductService, private alertify: AlertifyService) { } 
+    constructor(private productservice: ProductService, private alertify: AlertifyService){ } 
 
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
    
@@ -38,6 +39,6 @@ export class CreateComponent {
       position: Position.BottomRight,
       });
     });
-    
+    this.productservice.read();
   }
 }

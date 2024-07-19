@@ -33,17 +33,30 @@ export class ProductService {
 }
 
 
-
+    /*
+    Try to mask the updated date and created date with more similar text such as: 2024-07-12, 23:54 or smth
+    */
    read(): Observable<ListProduct[]> {
     
     var a = this.httpClientService.get<ListProduct[]>({
       controller: "products"
     });
     return a;
+
+
     // console.log("read");
     // console.log(a);
     // return a;
 
+  }
+
+  delete(id: string) {
+    console.log("Delete Selected in Service, id:", id);
+    
+    var a = this.httpClientService.delete({
+      controller: "products"
+    }, id!)
+    return a;
   }
 
 }
