@@ -56,9 +56,9 @@ export class ListComponent {
 
   changeProduct(event: any) {
     console.log("Product Changed");
-    console.log(event);
+    //console.log(event);
     this.selectedProduct = event.data;
-    console.log(this.selectedProduct);  
+    //console.log(this.selectedProduct);  
     this.isDisabled = false;
   }
   
@@ -66,8 +66,8 @@ export class ListComponent {
     this.productservice.read().subscribe((products) => {
       this.rowData = products;
       this.isDataReady = true;
-      console.log("Row Data");
-      console.log(this.rowData);
+      // console.log("Row Data");
+      // console.log(this.rowData);
     },
   (error) => {
     console.log('error fetching produtcs', error);

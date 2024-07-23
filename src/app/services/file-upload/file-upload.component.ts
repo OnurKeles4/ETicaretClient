@@ -52,9 +52,9 @@ export class FileUploadComponent {
         } as FileUploadOptions,
         fileData
       ).subscribe((data) => {
-        console.log("dataaa");
+        //console.log("dataaa");
         
-          console.log(data);
+          //console.log(data);
           
           const message: string = 'Dosyalar başarıyla yüklenmiştir.';
 

@@ -66,11 +66,13 @@ export class ProductService {
   }
 
   delete(id: string) {
-    console.log("Delete Selected in Service, id:", id);
+    //console.log("Delete Selected in Service, id:", id);
     
     var a = this.httpClientService.delete({
       controller: "products"
-    }, id!)
+    }, id!);
+    //console.log("rweqe",a);
+    
     return a;
   }
 

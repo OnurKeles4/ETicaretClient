@@ -15,7 +15,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { NgxFileDropModule } from 'ngx-file-drop'; 
+import { NgxFileDropComponent, NgxFileDropModule } from 'ngx-file-drop'; 
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,9 +32,10 @@ export const appConfig: ApplicationConfig = {
       AgGridModule,
       MatDialogModule,
       MatInputModule,
-      MatButtonModule,
+      //MatButtonModule,
       ReactiveFormsModule,
-      NgxFileDropModule  
+      NgxFileDropModule,
+      NgxFileDropComponent  
     ),
       provideToastr(), // Toastr providers
       provideAnimations(),
