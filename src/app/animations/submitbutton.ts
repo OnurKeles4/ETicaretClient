@@ -1,65 +1,49 @@
-import {
-  Component,
-  Inject,
-  Input,
-  NgModule,
-  OnDestroy,
-  OnInit,
-  Renderer2,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, Inject, OnDestroy, Renderer2, AfterViewInit, ViewChild, ElementRef, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { DataService } from '../services/ui/animation/animation-service';
-import { DOCUMENT } from '@angular/common';
 import { IxModule } from '@siemens/ix-angular';
 
 @Component({
   selector: 'submit-button',
-  imports: [IxModule],
-  template: `
-    <ix-button #animateButton id="animateButton"> {{ flag }} </ix-button>
-  `,
-  styleUrls: ['./submit-button.scss'],
   standalone: true,
+  imports: [IxModule],
+  template: `<ix-button id="animateButton" #animateButton> {{ flag }} </ix-button>`,
+  styleUrls: ['./submit-button.scss']
 })
-export class SubmitButton implements OnInit, OnDestroy, AfterViewInit {
+export class SubmitButton implements AfterViewInit, OnDestroy {
   @ViewChild('animateButton') animateButton: ElementRef<HTMLButtonElement>;
-  aniText: string;
   subscription: Subscription;
   aniProgress: boolean;
   flag: boolean;
+  aniText: string;
 
   constructor(
     private renderer: Renderer2,
     private dataService: DataService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     console.log('SubmitButton setData');
 
-    this.subscription = this.dataService.dataObs.subscribe((data) => {
+    this.subscription = this.dataService.dataObs.subscribe(data => {
+      console.log('Data received in Listener Component:', data);
       this.flag = data;
-      if (this.animateButton) {
+
+      if (isPlatformBrowser(this.platformId) && this.animateButton) {
         this.AniButton();
       }
     });
   }
 
-  ngOnInit() {
-    // Initialization logic if needed
-  }
-
   ngAfterViewInit() {
     // Ensure that the button element is accessed after the view has been initialized
-    if (this.animateButton) {
+    if (isPlatformBrowser(this.platformId) && this.animateButton) {
       this.AniButton();
     }
   }
 
   AniButton() {
     console.log('AniButton');
-
     const button = this.animateButton.nativeElement;
 
     if (button) {
@@ -93,6 +77,8 @@ export class SubmitButton implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    if (this.subscription) this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

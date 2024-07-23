@@ -36,12 +36,12 @@ export class DeleteComponent {
     private renderer: Renderer2,
     private dataService: DataService) {
 
-      // this.dataService.dataObs.subscribe((data) => {
-      //   this.isDisabled = data;
-      //   setTimeout(() => {
-      //     this.isDisabled = false;
-      //   }, 1000); // 1000 milliseconds   
-      //  });
+      //  this.dataService.dataObs.subscribe((data) => {
+      //    this.isDisabled = data;
+      //    setTimeout(() => {
+      //      this.isDisabled = false;
+      //    }, 1000); // 1000 milliseconds   
+      //   });
     }
   
   public deleteSelected() {
@@ -58,10 +58,10 @@ export class DeleteComponent {
         });
 
         this.flag = true;
-        this.animationEvent.emit(true);
         console.log('Normal:');
       
         this.sendData(this.flag);
+        this.animationEvent.emit(true);
       },
       () => {
         this.alertify.message('Ürün silinirken Hata oluştu', {
@@ -73,9 +73,10 @@ export class DeleteComponent {
 
         this.flag = false;
         
-        this.animationEvent.emit(false);
+        
         console.log('Error occurred while deleting the product:');
         this.sendData(this.flag);
+        this.animationEvent.emit(false);
       }
     );
   }
