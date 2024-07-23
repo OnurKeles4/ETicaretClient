@@ -16,13 +16,14 @@ import { AgGridModule } from 'ag-grid-angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { NgxFileDropComponent, NgxFileDropModule } from 'ngx-file-drop'; 
+import { DataService } from './services/ui/animation/animation-service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    
+    DataService,
     { provide: "baseUrl", useValue: "https://localhost:7067/api", multi: true},
     importProvidersFrom(
       IxModule.forRoot(),
@@ -35,11 +36,13 @@ export const appConfig: ApplicationConfig = {
       //MatButtonModule,
       ReactiveFormsModule,
       NgxFileDropModule,
-      NgxFileDropComponent  
+      NgxFileDropComponent,
+      
     ),
       provideToastr(), // Toastr providers
       provideAnimations(),
-      AgGridModule, provideAnimationsAsync()
+      AgGridModule, provideAnimationsAsync(),
+      
       
 ]
 };

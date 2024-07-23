@@ -1,31 +1,26 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  Renderer2,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild,}from '@angular/core';
 import { IxModule } from '@siemens/ix-angular';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ProductService } from '../../../../services/common/models/product.service';
-import {
-  AlertifyService,
-  MessageType,
-  Position,
-} from '../../../../services/admin/alertify.service';
+import { AlertifyService, MessageType, Position}from '../../../../services/admin/alertify.service';
+import { DataService } from '../../../../services/ui/animation/animation-service';
+import { SubmitButton } from '../../../../animations/submitbutton';
 
 declare function animateButton(): void;
 
 @Component({
   selector: 'app-delete',
   standalone: true,
-  imports: [IxModule, FontAwesomeModule],
+  imports: [IxModule, FontAwesomeModule, SubmitButton],
   templateUrl: './delete.component.html',
-  styleUrl: './delete.component.scss',
+  styleUrls: ['./delete.component.scss',
+    '../../../../../app/animations/submit-button.scss'
+  ],
 })
 export class DeleteComponent {
+  @ViewChild('animateButton') animateButton: ElementRef<HTMLButtonElement>;
   icon = faTrashCan;
   flag: boolean;
   aniText: string;
@@ -34,12 +29,20 @@ export class DeleteComponent {
   @Input() isDisabled!: boolean;
 
   @Output() messageEvent = new EventEmitter<boolean>();
-
+  @Output() animationEvent = new EventEmitter<boolean>();
   constructor(
     protected productservice: ProductService,
     private alertify: AlertifyService,
-    private renderer: Renderer2
-  ) {}
+    private renderer: Renderer2,
+    private dataService: DataService) {
+
+      // this.dataService.dataObs.subscribe((data) => {
+      //   this.isDisabled = data;
+      //   setTimeout(() => {
+      //     this.isDisabled = false;
+      //   }, 1000); // 1000 milliseconds   
+      //  });
+    }
   
   public deleteSelected() {
     //console.log('Delete Selected in Delete, id:', this.selectedProduct.id);
@@ -55,9 +58,10 @@ export class DeleteComponent {
         });
 
         this.flag = true;
+        this.animationEvent.emit(true);
         console.log('Normal:');
       
-        this.AniButton();
+        this.sendData(this.flag);
       },
       () => {
         this.alertify.message('Ürün silinirken Hata oluştu', {
@@ -68,46 +72,18 @@ export class DeleteComponent {
 
 
         this.flag = false;
-        console.log('Error occurred while deleting the product:');
         
-        this.AniButton();
+        this.animationEvent.emit(false);
+        console.log('Error occurred while deleting the product:');
+        this.sendData(this.flag);
       }
     );
   }
-
-  AniButton() {
-    const button = document.getElementById('animateButton');
+  sendData(flag: boolean) {
+    console.log("SendData in Delete being sent");
     
-    if (button) {
-      if(this.aniProgress) 
-        this.stopAnimation();
-      
-      console.log("button exists!");
-      console.log(this.flag);
-      this.flag ? this.aniText = 'scale-animation' : this.aniText = 'scale-animation-error';
-      
-      this.renderer.addClass(button, this.aniText);
-      this.aniProgress = true;
-      const onAnimationEnd = () => {
-        //to animate again, remove the old class
-        this.renderer.removeClass(button, this.aniText);
-        button.removeEventListener('animationend', onAnimationEnd);
-        this.aniProgress = false;
-      };
-      button.addEventListener('animationend', onAnimationEnd);
-      this.messageEvent.emit(true);
-    }
-    
-    
+    this.dataService.setData(flag);
   }
 
-  stopAnimation() {
-    const button = document.getElementById('animateButton');
-    if (button && this.aniText) {
-      this.renderer.removeClass(button, this.aniText);
-      this.aniProgress = false;
-      console.log('Animation stopped');
-      this.messageEvent.emit(true);
-    }
-  }
+  
 }
