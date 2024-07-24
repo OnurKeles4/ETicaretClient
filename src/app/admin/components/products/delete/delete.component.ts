@@ -27,19 +27,25 @@ export class DeleteComponent {
 
   @Input() selectedProduct: any;
 
-  @Output() messageEvent = new EventEmitter<boolean>();
+  //@Output() messageEvent = new EventEmitter<boolean>();
   //@Output() animationEvent = new EventEmitter<boolean>();
-  @Output() disableEvent = new EventEmitter<boolean>();
+  //@Output() disableEvent = new EventEmitter<boolean>();
   @Input() isDisabled: boolean = true;
+   subscription: any;
   constructor(
     protected productservice: ProductService,
     private alertify: AlertifyService,
     private renderer: Renderer2,
     private dataService: DataService) {
-
-    }
+ this.subscription = this.dataService.dataObs.subscribe(data => {
+  console.log('Data has been set', data);
+  
+      this.isDisabled = data;
+    });
+  }
   
   async deleteSelected() {
+
     if(this.isDisabled != true) {
       //console.log('Delete Selected in Delete, id:', this.isDisabled);
 
@@ -57,8 +63,6 @@ export class DeleteComponent {
         console.log('Normal:');
       
         this.sendData(this.flag);
-        //this.animationEvent.emit(true);
-        this.disableEvent.emit(true);
         
       }
       
@@ -68,29 +72,17 @@ export class DeleteComponent {
       //Doesn't work at the moment
       console.log('the button is disabledAA');
       
-        this.alertify.message('Ürün Silmek için ürün seçin', {
+        this.alertify.message('Ürün silmek için ürün seçin', {
           dismissOthers: true,
           messageType: MessageType.Error,
           position: Position.BottomRight,
         });
-
-
-        this.flag = false;
-        
-        
-        //console.log('Error occurred while deleting the product:');
-        this.sendData(this.flag);
-        //this.animationEvent.emit(false);
-        this.disableEvent.emit(false);
       
     }
   }
   sendData(flag: boolean) {
     //console.log("SendData in Delete being sent");
-    
     this.dataService.setData(flag);
-    
   }
-
   
 }

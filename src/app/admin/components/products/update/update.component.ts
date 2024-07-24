@@ -25,11 +25,16 @@ export class UpdateComponent {
   
   @Input() isDisabled: boolean = true;
   @Input() selectedProduct: any;
+  subscription: any;
   
 
   constructor(protected productservice: ProductService,private alertify: AlertifyService,
     public dialog: MatDialog, private dataService: DataService
-  ) {    this.sendData();}
+  ) {     this.subscription = this.dataService.dataObs.subscribe(data => {
+    console.log('Data has been set', data);
+    
+        this.isDisabled = data;
+      });}
   
   recieveMessage($event: boolean) {
     console.log("Recieved Message");
@@ -77,8 +82,13 @@ export class UpdateComponent {
     });
   }
   else {
-    //Doesn't work at the moment
-    console.log('the button is disabled');
+    console.log('the button is disabledAA');
+      
+    this.alertify.message('Ürün değiştirmek için ürün seçin', {
+      dismissOthers: true,
+      messageType: MessageType.Error,
+      position: Position.BottomRight,
+    });
   }
 }
 

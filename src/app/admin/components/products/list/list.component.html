@@ -20,6 +20,6 @@
 
  <div class="button-container">
 <app-update (disableEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-update>
-<app-delete (disableEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-delete>   <!-- Try to carry parameters to simplebutton-->
+<app-delete [selectedProduct]="selectedProduct"></app-delete>   <!-- Try to carry parameters to simplebutton-->
 </div>
 

@@ -13,7 +13,7 @@ import { DataService } from '../../../services/ui/animation/animation-service';
 })
 export class SimplebuttonComponent implements OnDestroy {  
   showSpinner: boolean = false;
-  @Input() isDisabled: boolean = true;
+  isDisabled: boolean = true;
   @Input() label: string;
   @Input() icon: any;
   attempt: boolean = true;
@@ -21,7 +21,7 @@ export class SimplebuttonComponent implements OnDestroy {
   constructor(private dataService: DataService) {
     this.subscription = this.dataService.dataObs.subscribe(data => {
       this.isDisabled = data;
-      //console.log("Data has been set", this.isDisabled);
+      console.log("Data has been set", this.isDisabled);
       
     });
   }
@@ -33,12 +33,12 @@ export class SimplebuttonComponent implements OnDestroy {
       this.attempt = false;
     //console.log("SPIN STARTED");
     this.showSpinner = true;
-    this.isDisabled = true;
+    //this.isDisabled = true;
     setTimeout(() => {
     
       //console.log("SPIN STOPPED");    
         this.showSpinner = false;
-        this.isDisabled = true;
+        //this.isDisabled = true;
     }, 1000);
     }
   }
