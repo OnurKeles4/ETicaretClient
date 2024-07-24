@@ -16,6 +16,7 @@ import {faTrashCan, faEdit} from '@fortawesome/free-solid-svg-icons'
 import { IxModule } from '@siemens/ix-angular';
 import { AlertifyService, MessageType, Position } from '../../../../services/admin/alertify.service';
 import { UpdateComponent } from '../update/update.component';
+import { DataService } from '../../../../services/ui/animation/animation-service';
 
 // import a from '../../../assets/mock_ticketsystem_data.json';
 
@@ -41,17 +42,20 @@ export class ListComponent {
   pagination: boolean = true;
   paginationPageSize: number = 10;
   
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected productservice: ProductService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected productservice: ProductService, 
+  private dataService: DataService) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+    this.sendData();
   }
   
   ngOnInit() {
     this.updateList();
   }
 
-  recieveMessage($event: any) {
+  recieveMessage($event: boolean) {
     console.log("Recieved Message");
     this.isDisabled = $event;
+    //this.selectedProduct = null;
   }  
 
   changeProduct(event: any) {
@@ -60,9 +64,11 @@ export class ListComponent {
     this.selectedProduct = event.data;
     //console.log(this.selectedProduct);  
     this.isDisabled = false;
+    this.sendData();
   }
   
   public updateList() {
+    
     this.productservice.read().subscribe((products) => {
       this.rowData = products;
       this.isDataReady = true;
@@ -81,4 +87,8 @@ export class ListComponent {
     { field: "createdDate" },
     { field: "updatedDate" }
   ];
+
+  sendData() {
+    this.dataService.setData(this.isDisabled);
+  }
 }

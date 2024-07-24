@@ -10,7 +10,7 @@
    
 ></ag-grid-angular>
  
-<app-update (messageEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-update>
-<app-delete (messageEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-delete>
+<app-update  [selectedProduct]="selectedProduct"></app-update>
+<app-delete (disableEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-delete>   <!-- Try to carry parameters to simplebutton-->
 
 

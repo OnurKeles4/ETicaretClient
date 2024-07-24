@@ -1,4 +1,5 @@
-<ix-button id="animateButton" [disabled]="isDisabled" (click)="deleteSelected()">
-    <fa-icon [icon]="icon"></fa-icon>Delete</ix-button>
+<!-- <ix-button id="animateButton" (click)="deleteSelected()">
+    <fa-icon [icon]="icon"></fa-icon>Delete</ix-button> -->
 
-<submit-button></submit-button>
+    <app-simplebutton  [label]='label' 
+    [icon]="icon" (click)="deleteSelected()" ></app-simplebutton>

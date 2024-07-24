@@ -9,9 +9,9 @@ export class DataService {
   dataObs = this.data.asObservable();
 
   setData(data: boolean) {
-    // console.log("data has been set");
+     console.log("data has been set");
      console.log(data);
-    // console.log(this.dataObs$);
+     console.log(this.dataObs);
     
     this.data.next(data);
   }

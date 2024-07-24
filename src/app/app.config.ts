@@ -10,13 +10,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideToastr } from 'ngx-toastr';
-import { IxModule } from '@siemens/ix-angular';
+import { IxModule, IxSpinner } from '@siemens/ix-angular';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { NgxFileDropComponent, NgxFileDropModule } from 'ngx-file-drop'; 
 import { DataService } from './services/ui/animation/animation-service';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,10 +39,11 @@ export const appConfig: ApplicationConfig = {
       ReactiveFormsModule,
       NgxFileDropModule,
       NgxFileDropComponent,
-      
+      NgxSpinnerModule,
     ),
       provideToastr(), // Toastr providers
       provideAnimations(),
+      IxSpinner,
       AgGridModule, provideAnimationsAsync(),
       
       

@@ -1,0 +1,7 @@
+<p>simplebutton works!</p>
+<div class="spinner-container">
+<ix-button (click)="active()" [disabled]="isDisabled" >
+    <fa-icon [icon]="icon"></fa-icon>{{label}} aaaa
+    <ix-spinner *ngIf="showSpinner"></ix-spinner>
+</ix-button>
+</div>
