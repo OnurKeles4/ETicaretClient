@@ -1,4 +1,4 @@
-<div>
+<div class="grid-container">
 <div class="ag-theme-alpine-dark ag-theme-ix">
 <ag-grid-angular *ngIf="isBrowser && isDataReady"
   style="height: 500px;
@@ -14,8 +14,8 @@
  </div>
 
  <div *ngIf="isRefreshed" class="ag-grid-overlay">
-  <div class="ag-grid-overlay-text"> aaa <ix-spinner></ix-spinner></div>  <!-- WIP, Should cover every part of the grid-->
-</div>
+  <div class="ag-grid-overlay-text"> Wait for the response <ix-spinner></ix-spinner></div>  <!-- WIP, Should cover every part of the grid-->
+  </div>
 </div>
 
  <div class="button-container">
