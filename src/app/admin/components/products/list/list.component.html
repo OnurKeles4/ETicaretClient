@@ -1,16 +1,25 @@
 <div>
+<div class="ag-theme-alpine-dark ag-theme-ix">
 <ag-grid-angular *ngIf="isBrowser && isDataReady"
   style="height: 500px;
   "class="ag-theme-quartz-dark"
   [rowData]="rowData"
   [columnDefs]="colDefs"
   [pagination]="pagination"
-   [paginationPageSize]="paginationPageSize"
-   (rowClicked)="changeProduct($event)"
-   
+  [paginationPageSize]="paginationPageSize"
+  (rowClicked)="changeProduct($event)"
+  
+  (gridReady)="onGridReady($event)"
 ></ag-grid-angular>
- 
-<app-update  [selectedProduct]="selectedProduct"></app-update>
-<app-delete (disableEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-delete>   <!-- Try to carry parameters to simplebutton-->
+ </div>
 
+ <div *ngIf="!isRefreshed" class="ag-grid-overlay">
+  <div class="ag-grid-overlay-text">Grid is disabled</div>
+</div>
+</div>
+
+ <div class="button-container">
+<app-update (disableEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-update>
+<app-delete (disableEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-delete>   <!-- Try to carry parameters to simplebutton-->
+</div>
 

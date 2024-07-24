@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {faEdit} from '@fortawesome/free-solid-svg-icons'
 import { IxModule } from '@siemens/ix-angular';
@@ -6,23 +6,36 @@ import { ProductService } from '../../../../services/common/models/product.servi
 import { AlertifyService, MessageType, Position } from '../../../../services/admin/alertify.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDialogComponent } from '../popup-dialog/popup-dialog.component';
+import { DataService } from '../../../../services/ui/animation/animation-service';
+import { SimplebuttonComponent } from "../../../../common/components/simplebutton/simplebutton.component";
 @Component({
   selector: 'app-update',
   standalone: true,
-  imports: [IxModule, FontAwesomeModule, PopupDialogComponent],
+  imports: [IxModule, FontAwesomeModule, PopupDialogComponent, SimplebuttonComponent],
   templateUrl: './update.component.html',
   styleUrl: './update.component.scss'
 })
 export class UpdateComponent {
   icon = faEdit;
   onOk = new EventEmitter();
+  label: string = "Update";
+  @Output() messageEvent = new EventEmitter<boolean>();
+  @Output() animationEvent = new EventEmitter<boolean>();
+  @Output() disableEvent = new EventEmitter<boolean>();
+  
+  @Input() isDisabled: boolean = true;
+  @Input() selectedProduct: any;
+  
 
   constructor(protected productservice: ProductService,private alertify: AlertifyService,
-    public dialog: MatDialog
-  ) {}
-
-  @Input() selectedProduct: any;
-  @Input() isDisabled!: boolean;
+    public dialog: MatDialog, private dataService: DataService
+  ) {    this.sendData();}
+  
+  recieveMessage($event: boolean) {
+    console.log("Recieved Message");
+    this.isDisabled = $event;
+    //this.selectedProduct = null;
+  }  
 
   public editSelected() {
     console.log("Edit Selected");
@@ -30,11 +43,12 @@ export class UpdateComponent {
   }
 
   openDialog(): void {
+    if(this.isDisabled != true) {
     const dialogRef = this.dialog.open(PopupDialogComponent, {
       width: '300px',
       data: {
         title: 'Dialog Title',
-        description: 'Dialog description goes here'
+        description: 'Edit your data'
       }
     });
 
@@ -56,8 +70,19 @@ export class UpdateComponent {
           ,});
      
         });
+        console.log("emit send in update");
+        this.sendData();
+        this.disableEvent.emit(true);
       }
     });
   }
+  else {
+    //Doesn't work at the moment
+    console.log('the button is disabled');
+  }
+}
 
+  sendData() {
+    this.dataService.setData(true);
+  }
 }

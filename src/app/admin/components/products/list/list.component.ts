@@ -2,7 +2,11 @@ import { DataSource } from '@angular/cdk/collections';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
-import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
+import { ColDef,
+  ColGroupDef,
+  GridApi,
+  GridOptions,
+  createGrid, } from 'ag-grid-community'; // Column Definition Type Interface
 import 'ag-grid-community/styles/ag-grid.css';
 /* Quartz Theme Specific CSS */
 import 'ag-grid-community/styles/ag-theme-quartz.css';
@@ -28,38 +32,80 @@ import { DataService } from '../../../../services/ui/animation/animation-service
   styleUrl: './list.component.scss'
   
 })
+
 export class ListComponent {
   selectedProduct: any;
   selectedId: string = "";
-  isDisabled: boolean = true;
   icon1 = faEdit;
   icon2 = faTrashCan;
   
+  isDisabled: boolean = true;
   isBrowser: boolean;
   isDataReady: boolean = false;
+  isRefreshed: boolean = true;
   rowData: ListProduct[] = [];
-  
+  //refresh: boolean = false;
   pagination: boolean = true;
   paginationPageSize: number = 10;
+  subscription: any;
+
+  private gridApi;
+  private gridColumnApi;
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected productservice: ProductService, 
   private dataService: DataService) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.sendData();
+    // this.subscription = this.dataService.dataObs.subscribe(data => {
+    //   this.refresh = data;
+    //   console.log("Data has been set", this.refresh);
+      
+    // });
   }
+
   
   ngOnInit() {
     this.updateList();
   }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  //   this.updateList();
+  // }
+
+  onGridReady($event) {
+    
+  }
+
+  updateRow() {
+    const rowNode = this.gridApi.getRowNode('0');
+    if (rowNode) {
+      rowNode.setData({ name: 'Updated Name', number: 999, date: '2024-01-01' });
+    }
+  }
+
+  removeRow() {
+
+    this.gridApi.applyTransaction({ remove: this.selectedProduct });
+  }
+
+
+
+
+ 
 
   recieveMessage($event: boolean) {
-    console.log("Recieved Message");
+    console.log("Recieved Message", this.isDisabled);
     this.isDisabled = $event;
+    
+    this.updateList();
     //this.selectedProduct = null;
   }  
 
   changeProduct(event: any) {
     console.log("Product Changed");
+    //console.log("Selected Product", selectedRows);
+    
+    
     //console.log(event);
     this.selectedProduct = event.data;
     //console.log(this.selectedProduct);  

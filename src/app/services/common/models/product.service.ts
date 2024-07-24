@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { CreateProduct } from '../../../contracts/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
-import { lastValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Observable } from 'rxjs';
 import { ListProduct } from '../../../contracts/list_product';
 import { LastValueFromConfig } from 'rxjs/internal/lastValueFrom';
 @Injectable({
@@ -65,15 +65,15 @@ export class ProductService {
 
   }
 
-  delete(id: string) {
+  async delete(id: string) {
     //console.log("Delete Selected in Service, id:", id);
     
-    var a = this.httpClientService.delete({
+    const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       controller: "products"
-    }, id!);
+    }, id);
     //console.log("rweqe",a);
     
-    return a;
+    var a = await firstValueFrom(deleteObservable);
   }
 
   update(product: ListProduct) {
