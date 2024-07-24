@@ -21,9 +21,11 @@ export class SimplebuttonComponent implements OnDestroy {
   constructor(private dataService: DataService) {
     this.subscription = this.dataService.dataObs.subscribe(data => {
       this.isDisabled = data;
-      console.log("Data has been set", this.isDisabled);
+      //console.log("Data has been set", this.isDisabled);
       
     });
+
+    
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -38,8 +40,9 @@ export class SimplebuttonComponent implements OnDestroy {
     
       //console.log("SPIN STOPPED");    
         this.showSpinner = false;
+        this.dataService.setRefresh(false);
         //this.isDisabled = true;
-    }, 1000);
+    }, 4000);
     }
   }
 

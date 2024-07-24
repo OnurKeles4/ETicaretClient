@@ -20,8 +20,7 @@ export class UpdateComponent {
   onOk = new EventEmitter();
   label: string = "Update";
   @Output() messageEvent = new EventEmitter<boolean>();
-  @Output() animationEvent = new EventEmitter<boolean>();
-  @Output() disableEvent = new EventEmitter<boolean>();
+
   
   @Input() isDisabled: boolean = true;
   @Input() selectedProduct: any;
@@ -29,8 +28,8 @@ export class UpdateComponent {
   
 
   constructor(protected productservice: ProductService,private alertify: AlertifyService,
-    public dialog: MatDialog, private dataService: DataService
-  ) {     this.subscription = this.dataService.dataObs.subscribe(data => {
+    public dialog: MatDialog, private dataService: DataService) {
+    this.subscription = this.dataService.dataObs.subscribe(data => {
     console.log('Data has been set', data);
     
         this.isDisabled = data;
@@ -58,6 +57,8 @@ export class UpdateComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+     
+      this.sendRefreshRequest(true);
       if (result) {
         console.log('Dialog result:', result);
       const edit_product: any = this.productservice.readWithId(this.selectedProduct.id);
@@ -75,9 +76,10 @@ export class UpdateComponent {
           ,});
      
         });
-        console.log("emit send in update");
+        console.log("Edit Selected in Update, senddata and refresh", this.sendData);
+        
         this.sendData();
-        this.disableEvent.emit(true);
+        //this.sendRefreshRequest(false);
       }
     });
   }
@@ -89,10 +91,15 @@ export class UpdateComponent {
       messageType: MessageType.Error,
       position: Position.BottomRight,
     });
+    //this.sendRefreshRequest(false);
   }
 }
 
   sendData() {
     this.dataService.setData(true);
+  }
+  
+  sendRefreshRequest(flag: boolean) {
+    this.dataService.setRefresh(flag);
   }
 }

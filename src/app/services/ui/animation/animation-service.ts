@@ -7,6 +7,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class DataService {
   private data = new BehaviorSubject(false);
   dataObs = this.data.asObservable();
+  private refresh = new BehaviorSubject(false);
+  refreshObs = this.refresh.asObservable();
 
   setData(data: boolean) {
      //console.log("data has been set");
@@ -15,4 +17,11 @@ export class DataService {
     
     this.data.next(data);
   }
+
+  
+  setRefresh(data: boolean) {
+    console.log("refresh has been set");
+    
+   this.refresh.next(data);
+ }
 }

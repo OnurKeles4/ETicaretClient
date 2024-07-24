@@ -13,13 +13,13 @@
 ></ag-grid-angular>
  </div>
 
- <div *ngIf="!isRefreshed" class="ag-grid-overlay">
-  <div class="ag-grid-overlay-text">Grid is disabled</div>
+ <div *ngIf="isRefreshed" class="ag-grid-overlay">
+  <div class="ag-grid-overlay-text"> aaa <ix-spinner></ix-spinner></div>  <!-- WIP, Should cover every part of the grid-->
 </div>
 </div>
 
  <div class="button-container">
-<app-update (disableEvent)="recieveMessage($event)" [isDisabled]="isDisabled" [selectedProduct]="selectedProduct"></app-update>
+<app-update [selectedProduct]="selectedProduct"></app-update>
 <app-delete [selectedProduct]="selectedProduct"></app-delete>   <!-- Try to carry parameters to simplebutton-->
 </div>
 

@@ -38,7 +38,7 @@ export class DeleteComponent {
     private renderer: Renderer2,
     private dataService: DataService) {
  this.subscription = this.dataService.dataObs.subscribe(data => {
-  console.log('Data has been set', data);
+  //console.log('Data has been set', data);
   
       this.isDisabled = data;
     });
@@ -64,6 +64,8 @@ export class DeleteComponent {
       
         this.sendData(this.flag);
         
+        this.sendRefreshRequest();
+        
       }
       
     );
@@ -83,6 +85,11 @@ export class DeleteComponent {
   sendData(flag: boolean) {
     //console.log("SendData in Delete being sent");
     this.dataService.setData(flag);
+  }
+  
+  sendRefreshRequest() {
+    console.log('Send Refresh Request in Delete being sent');
+    this.dataService.setRefresh(true);
   }
   
 }

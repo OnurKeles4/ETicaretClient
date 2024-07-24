@@ -42,7 +42,7 @@ export class ListComponent {
   isDisabled: boolean = true;
   isBrowser: boolean;
   isDataReady: boolean = false;
-  isRefreshed: boolean = true;
+  isRefreshed: boolean = false;
   rowData: ListProduct[] = [];
   //refresh: boolean = false;
   pagination: boolean = true;
@@ -56,11 +56,20 @@ export class ListComponent {
   private dataService: DataService) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.sendData();
-    // this.subscription = this.dataService.dataObs.subscribe(data => {
-    //   this.refresh = data;
-    //   console.log("Data has been set", this.refresh);
+    this.subscription = this.dataService.dataObs.subscribe(data => {
+    //console.log('Data has been set', data);
+    
+        this.isDisabled = data;
+        
+      });
+      this.subscription.unsubscribe();
+        this.subscription = this.dataService.refreshObs.subscribe(data => {
+      //console.log('Data has been set in refreshObs', data);
       
-    // });
+          this.isRefreshed = data;
+          
+    this.updateList();
+        });
   }
 
   
