@@ -21,7 +21,7 @@ export class AppComponent {
     // this.showSuccess(); 
   }
   showSuccess() {
-   console.log("Hello world!");
+   //console.log("Hello world!");
    this.toastr.message("Hello", "Success", ToastrMessageType.Info, ToastrPosition.TopLeft);
    
  }

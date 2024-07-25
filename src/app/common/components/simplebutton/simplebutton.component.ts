@@ -31,18 +31,18 @@ export class SimplebuttonComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-    active() {
-      this.attempt = false;
-    //console.log("SPIN STARTED");
-    this.showSpinner = true;
-    //this.isDisabled = true;
-    setTimeout(() => {
+    // active() {
+    //   this.attempt = false;
+    // //console.log("SPIN STARTED");
+    // this.showSpinner = true;
+    // //this.isDisabled = true;
+    // setTimeout(() => {
     
-      //console.log("SPIN STOPPED");    
-        this.showSpinner = false;
-        this.dataService.setRefresh(false);
-        //this.isDisabled = true;
-    }, 4000);
-    }
+    //   //console.log("SPIN STOPPED");    
+    //     this.showSpinner = false;
+    //     this.dataService.setRefresh(false);
+    //     //this.isDisabled = true;
+    // }, 0);
+    // }
   }
 

@@ -1,7 +1,7 @@
 
 <div class="spinner-container">
-<ix-button (click)="active()" [disabled]="isDisabled" >
+<ix-button>
     <fa-icon [icon]="icon"></fa-icon>{{label}}
-    <ix-spinner *ngIf="showSpinner"></ix-spinner>
+    <ix-spinner *ngIf="showSpinner" id="button-spinner"></ix-spinner>
 </ix-button>
 </div>

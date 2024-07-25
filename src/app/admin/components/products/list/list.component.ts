@@ -111,7 +111,7 @@ export class ListComponent {
   }  
 
   changeProduct(event: any) {
-    console.log("Product Changed");
+    //console.log("Product Changed");
     //console.log("Selected Product", selectedRows);
     
     

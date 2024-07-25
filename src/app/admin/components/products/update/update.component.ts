@@ -46,7 +46,7 @@ export class UpdateComponent {
     this.isDisabled = true;
   }
 
-  openDialog(): void {
+  async openDialog() {
     if(this.isDisabled != true) {
     const dialogRef = this.dialog.open(PopupDialogComponent, {
       width: '300px',
@@ -56,18 +56,21 @@ export class UpdateComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.sendRefreshRequest(true);
+    dialogRef.afterClosed().subscribe(async result => {
      
-      this.sendRefreshRequest(true);
       if (result) {
-        console.log('Dialog result:', result);
+        //console.log('Dialog result:', result);
+        
       const edit_product: any = this.productservice.readWithId(this.selectedProduct.id);
+      
+      //console.log('Edit Product:', edit_product);
       edit_product.id = this.selectedProduct.id;
       edit_product.name = result.input1;
       edit_product.stock = parseInt(result.input2);
       edit_product.price = parseFloat(result.input3);
 
-      this.productservice.update(edit_product).subscribe(() => {
+      await this.productservice.update(edit_product).then(() => {
           this.alertify.message("Ürün başarıyla değiştirildi", {
             messageType: MessageType.Message,
             position: Position.BottomRight,
@@ -76,22 +79,23 @@ export class UpdateComponent {
           ,});
      
         });
-        console.log("Edit Selected in Update, senddata and refresh", this.sendData);
+        //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
         
         this.sendData();
         //this.sendRefreshRequest(false);
       }
+      
+    this.sendRefreshRequest(false);
     });
   }
   else {
-    console.log('the button is disabledAA');
+    //console.log('the button is disabledAA');
       
     this.alertify.message('Ürün değiştirmek için ürün seçin', {
       dismissOthers: true,
       messageType: MessageType.Error,
       position: Position.BottomRight,
     });
-    //this.sendRefreshRequest(false);
   }
 }
 

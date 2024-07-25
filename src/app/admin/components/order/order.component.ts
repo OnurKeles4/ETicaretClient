@@ -17,8 +17,8 @@ export class OrderComponent  {
   deleteSelected(): void {
     const button = document.getElementById('animateButton');
     if (button) {
-      console.log("button exists!");
-      console.log(button);
+      //console.log("button exists!");
+      //console.log(button);
       this.renderer.addClass(button, 'scale-animation');
       
       // Remove the class when the animation ends

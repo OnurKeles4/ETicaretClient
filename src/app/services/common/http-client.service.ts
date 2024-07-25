@@ -28,10 +28,10 @@ export class HttpClientService {
       url = requestParameter.fullEndPoint;
     else
       url = `${this.url(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`
-    console.log("post url");
-      console.log(url);
-      console.log(body);
-      console.log(requestParameter);
+      // console.log("post url");
+      // console.log(url);
+      // console.log(body);
+      // console.log(requestParameter);
       
       
     return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });

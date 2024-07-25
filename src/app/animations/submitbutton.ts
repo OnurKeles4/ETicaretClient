@@ -27,7 +27,7 @@ export class SubmitButton implements OnDestroy {
   flag: boolean;
 
   constructor(private renderer: Renderer2, private dataService: DataService, @Inject(DOCUMENT) private document: Document) {
-    console.log('SubmitButton setData');
+    //console.log('SubmitButton setData');
 
     this.subscription = this.dataService.dataObs.subscribe((data) => {
       //console.log('Data received in Listener Component:', data);

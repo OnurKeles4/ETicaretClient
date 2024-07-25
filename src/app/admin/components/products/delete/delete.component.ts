@@ -60,11 +60,11 @@ export class DeleteComponent {
         });
 
         this.flag = true;
-        console.log('Normal:');
+        //console.log('Normal:');
       
         this.sendData(this.flag);
         
-        this.sendRefreshRequest();
+        this.sendRefreshRequest(false);
         
       }
       
@@ -72,7 +72,7 @@ export class DeleteComponent {
   }
     else {
       //Doesn't work at the moment
-      console.log('the button is disabledAA');
+      console.log('the button is disabled');
       
         this.alertify.message('Ürün silmek için ürün seçin', {
           dismissOthers: true,
@@ -87,9 +87,9 @@ export class DeleteComponent {
     this.dataService.setData(flag);
   }
   
-  sendRefreshRequest() {
+  sendRefreshRequest(flag: boolean) {
     console.log('Send Refresh Request in Delete being sent');
-    this.dataService.setRefresh(true);
+    this.dataService.setRefresh(flag);
   }
   
 }

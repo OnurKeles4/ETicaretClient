@@ -20,7 +20,7 @@ export class DataService {
 
   
   setRefresh(data: boolean) {
-    console.log("refresh has been set");
+    //console.log("refresh has been set");
     
    this.refresh.next(data);
  }

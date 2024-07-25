@@ -49,15 +49,18 @@ export class ProductService {
     // return a;
 
   }
-
-  readWithId(id: string): Observable<ListProduct[]> {
+    //Consider making it async
+  async readWithId(id: string): Promise<Observable<ListProduct[]>> {
+    //console.log("start read with Id");
     
-    var a = this.httpClientService.get<ListProduct[]>({
+    const readIdObs: Observable<any> = this.httpClientService.get<ListProduct[]>({
       controller: "products"
     }, id);
-    console.log("read with Id");
-     console.log(a);
+    //console.log("obs read with Id");
+     //console.log(a);
     
+    var a = await firstValueFrom(readIdObs);
+
     return a;
 
 
@@ -76,12 +79,15 @@ export class ProductService {
     var a = await firstValueFrom(deleteObservable);
   }
 
-  update(product: ListProduct) {
-    console.log("Update Selected in Service, product:", product);
+  async update(product: ListProduct): Promise<void> {
+    //console.log("Update Selected in Service, product:", product);
     
-    var a = this.httpClientService.put({
+    const updateObs: Observable<any> = this.httpClientService.put({
       controller: "products"
     }, product)
+
+    var a = await firstValueFrom(updateObs);
+
     return a;
   }
 
