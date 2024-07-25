@@ -1,24 +1,24 @@
 <div class="edit-box">
 <h2 class="header" mat-dialog-title>Edit Product</h2>
-<div mat-dialog-content>
+<div mat-dialog-content id="dialog">
   <p>{{data.description}}</p>
   <form [formGroup]="form">
     <mat-form-field>
       <mat-label>Input 1</mat-label>
-      <input matInput formControlName="input1">
+      <input placeholder="Edit Name" matInput formControlName="input1">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Input 2</mat-label>
-      <input matInput formControlName="input2">
+      <input placeholder="Edit Price" matInput formControlName="input2">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Input 3</mat-label>
-      <input matInput formControlName="input3">
+      <input placeholder="Edit Stock" matInput formControlName="input3">
     </mat-form-field>
   </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button (click)="onSubmit()">Submit</button>
+<div class="button-container" mat-dialog-actions>
+  <ix-button mat-button (click)="onCancel()">Cancel</ix-button>
+  <ix-button mat-button (click)="onSubmit()">Submit</ix-button>
 </div>
 </div>

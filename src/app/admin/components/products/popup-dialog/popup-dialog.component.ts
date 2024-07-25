@@ -3,11 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProductService } from '../../../../services/common/models/product.service';
+import { IxModule } from '@siemens/ix-angular';
 
 @Component({
   selector: 'app-popup-dialog',
   standalone: true,
-  imports: [MatFormFieldModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, ReactiveFormsModule, IxModule],
   templateUrl: './popup-dialog.component.html',
   styleUrls: ['./popup-dialog.component.scss']
 })

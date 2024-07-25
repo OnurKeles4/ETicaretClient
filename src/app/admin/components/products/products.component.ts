@@ -18,7 +18,7 @@ import { FileUploadComponent } from "../../../services/file-upload/file-upload.c
 })
 export class ProductsComponent {
 
-  constructor(private httpClientService: HttpClientService) { 
+  constructor() { 
     
   }
 
