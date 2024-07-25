@@ -65,10 +65,10 @@ export class UpdateComponent {
       const edit_product: any = this.productservice.readWithId(this.selectedProduct.id);
       
       //console.log('Edit Product:', edit_product);
-      edit_product.id = this.selectedProduct.id;
-      edit_product.name = result.input1;
-      edit_product.stock = parseInt(result.input2);
-      edit_product.price = parseFloat(result.input3);
+      edit_product.id  = this.selectedProduct.id;
+      edit_product.name = result.input1 ? result.input1 : this.selectedProduct.name;
+      edit_product.stock = parseInt(result.input2) ? parseInt(result.input2) : this.selectedProduct.stock;
+      edit_product.price = parseFloat(result.input3) ? parseFloat(result.input3) : this.selectedProduct.price;
 
       await this.productservice.update(edit_product).then(() => {
           this.alertify.message("Ürün başarıyla değiştirildi", {
